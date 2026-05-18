@@ -172,3 +172,109 @@ Workflow:
   "message": "Something went wrong"
 }
 ```
+---
+
+# Stage 2
+
+## Database Schema Design
+
+The notification system stores notification details, student information and notification read status.
+
+The schema is designed in a simple and scalable way for handling campus notifications.
+
+---
+
+# 1. Students Collection
+
+```json
+{
+  "_id": "ObjectId",
+  "name": "Rahul Sharma",
+  "email": "rahul@example.com",
+  "department": "Computer Engineering",
+  "year": 3
+}
+```
+
+---
+
+# 2. Notifications Collection
+
+```json
+{
+  "_id": "ObjectId",
+  "title": "Placement Drive",
+  "message": "Company registration started",
+  "type": "Placement",
+  "priorityScore": 90,
+  "createdAt": "timestamp"
+}
+```
+
+---
+
+# 3. Notification Status Collection
+
+```json
+{
+  "_id": "ObjectId",
+  "studentId": "ObjectId",
+  "notificationId": "ObjectId",
+  "isRead": false,
+  "readAt": "timestamp"
+}
+```
+
+---
+
+# Relationships
+
+- One student can receive many notifications
+- One notification can be received by many students
+- Notification status tracks whether a student has read a notification
+
+---
+
+# Scaling Considerations
+
+## 1. Indexing
+
+Indexes can be added on:
+
+- notification type
+- createdAt
+- studentId
+
+This improves filtering and searching performance.
+
+---
+
+## 2. Pagination
+
+Pagination is used in APIs to avoid loading all notifications at once.
+
+Example:
+
+```http
+GET /notifications?page=1&limit=10
+```
+
+---
+
+## 3. Caching
+
+Frequently accessed notifications can be cached to reduce database load.
+
+---
+
+## 4. Horizontal Scaling
+
+The backend server can be scaled using multiple instances with load balancing.
+
+---
+
+# Data Consistency
+
+The system maintains consistency by storing notification status separately for each student.
+
+This allows proper tracking of read and unread notifications.
