@@ -278,3 +278,136 @@ The backend server can be scaled using multiple instances with load balancing.
 The system maintains consistency by storing notification status separately for each student.
 
 This allows proper tracking of read and unread notifications.
+
+---
+
+# Stage 3
+
+## Low Level Design
+
+The notification system follows a modular architecture where each component has a separate responsibility.
+
+This improves maintainability and readability of the codebase.
+
+---
+
+# Backend Components
+
+## 1. Route Layer
+
+The route layer handles incoming API requests and forwards them to controllers.
+
+Example routes:
+
+```http
+GET /notifications
+PATCH /notifications/:id/read
+DELETE /notifications/:id
+```
+
+---
+
+## 2. Controller Layer
+
+The controller processes request and response handling.
+
+Responsibilities:
+
+- Validate request data
+- Call service functions
+- Return API response
+
+---
+
+## 3. Service Layer
+
+The service layer contains business logic.
+
+Responsibilities:
+
+- Filter notifications
+- Sort priority notifications
+- Manage notification status
+
+---
+
+## 4. Database Layer
+
+The database layer interacts with MongoDB collections.
+
+Responsibilities:
+
+- Store notifications
+- Store read status
+- Fetch filtered data
+
+---
+
+# Frontend Components
+
+## 1. Notification List Component
+
+Displays all notifications in card format.
+
+Features:
+
+- Read/unread status
+- Notification type
+- Timestamp
+
+---
+
+## 2. Filter Component
+
+Allows filtering notifications by category.
+
+Example filters:
+
+- Placement
+- Events
+- Results
+
+---
+
+## 3. Priority Notification Section
+
+Displays high priority notifications separately.
+
+---
+
+# Logging Middleware
+
+A reusable logging middleware is used throughout the application.
+
+Purpose:
+
+- Track API activity
+- Track frontend events
+- Capture errors
+
+Example:
+
+```js
+Log("frontend", "info", "component", "notification rendered");
+```
+
+---
+
+# Error Handling
+
+The application handles errors using try-catch blocks and centralized logging.
+
+Example scenarios:
+
+- Failed API calls
+- Invalid requests
+- Server errors
+
+---
+
+# Future Improvements
+
+- Push notifications
+- Email notifications
+- Role-based access
+- Notification scheduling
