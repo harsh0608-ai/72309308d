@@ -1,7 +1,7 @@
 const LOG_API =
   "http://4.224.186.213/evaluation-service/logs";
 
-export const Log = async (
+const Log = async (
   stack,
   level,
   packageName,
@@ -10,9 +10,11 @@ export const Log = async (
   try {
     await fetch(LOG_API, {
       method: "POST",
+
       headers: {
         "Content-Type": "application/json",
       },
+
       body: JSON.stringify({
         stack,
         level,
@@ -24,3 +26,5 @@ export const Log = async (
     console.log(error);
   }
 };
+
+module.exports = { Log };

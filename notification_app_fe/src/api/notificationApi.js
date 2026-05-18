@@ -27,7 +27,9 @@ const dummyNotifications = [
 
 export const fetchNotifications = async () => {
   try {
-    const response = await fetch(BASE_URL);
+    const response = await fetch(
+  `${BASE_URL}?page=1&limit=10`
+);
 
     const data = await response.json();
 

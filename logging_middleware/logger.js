@@ -1,12 +1,25 @@
-const LOG_API = "http://4.224.186.213/evaluation-service/logs";
+import { getAuthToken } from "./auth.js";
 
-export const Log = async (stack, level, packageName, message) => {
+const LOG_API =
+  "http://4.224.186.213/evaluation-service/logs";
+
+export const Log = async (
+  stack,
+  level,
+  packageName,
+  message
+) => {
   try {
+    const token = getAuthToken();
+
     await fetch(LOG_API, {
       method: "POST",
+
       headers: {
-        "Content-Type": "json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
+
       body: JSON.stringify({
         stack,
         level,
@@ -15,6 +28,6 @@ export const Log = async (stack, level, packageName, message) => {
       }),
     });
   } catch (error) {
-    console.log("Log error", error);
+    console.log(error);
   }
 };

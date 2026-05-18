@@ -6,20 +6,33 @@ import {
   Select,
   Box,
 } from "@mui/material";
+import {sortNotificationsByPriority,} from "./utils/priorityUtils";
 
 import NotificationCard from "./components/NotificationCard";
 
 import { fetchNotifications } from "./api/notificationApi";
 
-import { Log } from "./utils/logger";
+import { Log } from "../../logging_middleware/logger";
+
+import { generateToken } from "../../logging_middleware/generateTokens";
+
+import { setAuthToken } from "../../logging_middleware/auth";
 
 function App() {
   const [notifications, setNotifications] = useState([]);
   const [filter, setFilter] = useState("All");
 
   useEffect(() => {
-    loadNotifications();
+  initializeApp();
   }, []);
+
+  const initializeApp = async () => {
+    const token = await generateToken();
+
+    setAuthToken(token);
+
+    loadNotifications();
+  };
 
   const loadNotifications = async () => {
     try {
@@ -32,10 +45,8 @@ function App() {
 
       const data = await fetchNotifications();
 
-      const sorted = data.sort(
-        (a, b) =>
-          b.priorityScore - a.priorityScore
-      );
+      const sorted =
+  sortNotificationsByPriority(data);
 
       setNotifications(sorted);
 
@@ -62,6 +73,24 @@ function App() {
           (item) => item.type === filter
         );
 
+  const [readNotifications, setReadNotifications] =
+  useState([]);
+
+  const handleRead = async (id) => {
+  if (!readNotifications.includes(id)) {
+    setReadNotifications([
+      ...readNotifications,
+      id,
+    ]);
+
+    await Log(
+      "frontend",
+      "info",
+      "component",
+      "Notification marked as read"
+    );
+  }
+};
   return (
   <Box
     sx={{
@@ -94,7 +123,7 @@ function App() {
           Stay updated with placement drives,
           results and campus events.
       </Typography>
-      
+
       <Box sx={{ marginBottom: 3 }}>
         <Select
           value={filter}
@@ -121,6 +150,12 @@ function App() {
       <NotificationCard
         key={notification.id}
         notification={notification}
+        isRead={readNotifications.includes(
+          notification.id
+        )}
+        onClick={() =>
+          handleRead(notification.id)
+        }
       />
       ))
       ) : (

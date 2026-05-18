@@ -1,5 +1,6 @@
-const express = require("express");
-const cors = require("cors");
+import express from "express";
+import cors from "cors";
+import { Log } from "../../logging_middleware/logger.js";
 
 const app = express();
 
@@ -13,13 +14,20 @@ app.get("/", (req, res) => {
   });
 });
 
-app.get("/health", (req, res) => {
+app.get("/health", async (req, res) => {
+  await Log(
+    "backend",
+    "info",
+    "route",
+    "Health route accessed"
+  );
+
   res.json({
     status: "OK",
   });
 });
 
-const PORT = 5000;
+const PORT = 3000;
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
