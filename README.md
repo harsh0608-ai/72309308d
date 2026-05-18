@@ -38,3 +38,15 @@ Example:
 ```js
 Log("frontend", "info", "component", "notification rendered");
 ```
+
+## Backend
+
+Simple Express backend server included for full stack structure.
+
+Run backend:
+
+```bash
+cd notification_app_be
+npm install
+npm start
+```
