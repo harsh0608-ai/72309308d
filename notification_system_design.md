@@ -540,3 +540,93 @@ Example events:
 - Component render
 - API request failure
 - Filter selection
+
+---
+
+# Stage 5
+
+## Priority Notification Logic
+
+The system identifies important notifications using a priority score.
+
+Notifications with higher scores are displayed first in the application.
+
+---
+
+# Priority Factors
+
+The priority score is calculated using different factors:
+
+| Factor | Description |
+|------|-------------|
+| Notification Type | Placement notifications get higher priority |
+| Recency | Latest notifications are prioritized |
+| Urgency | Deadline based notifications are ranked higher |
+
+---
+
+# Example Priority Scores
+
+| Notification Type | Score |
+|------|------|
+| Placement | 90 |
+| Result | 70 |
+| Event | 50 |
+
+---
+
+# Algorithm Approach
+
+The system follows these steps:
+
+1. Fetch all notifications
+2. Assign priority score
+3. Sort notifications in descending order
+4. Display top priority notifications first
+
+---
+
+# Example Pseudocode
+
+```js
+for each notification:
+    calculate priorityScore
+
+sort notifications by priorityScore descending
+```
+
+---
+
+# Time Complexity
+
+| Operation | Complexity |
+|------|------|
+| Assign Priority | O(n) |
+| Sorting | O(n log n) |
+
+---
+
+# Real-Time Notification Handling
+
+When a new notification arrives:
+
+1. Notification is added to list
+2. Priority score is calculated
+3. Notifications are re-sorted
+4. UI updates automatically
+
+---
+
+# Advantages
+
+- Important notifications are easily visible
+- Students receive urgent updates quickly
+- Better user experience
+
+---
+
+# Future Improvements
+
+- AI based ranking
+- Personalized notification priority
+- User preference based sorting
