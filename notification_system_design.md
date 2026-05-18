@@ -411,3 +411,132 @@ Example scenarios:
 - Email notifications
 - Role-based access
 - Notification scheduling
+
+---
+
+# Stage 4
+
+## Frontend Design
+
+The frontend application is built using React and Material UI.
+
+The UI is designed to be simple, responsive and easy to use for students.
+
+---
+
+# Main Pages
+
+## 1. Home Page
+
+The home page displays all notifications.
+
+Features:
+
+- Notification cards
+- Read and unread indication
+- Filter options
+- Priority notifications section
+
+---
+
+# Component Structure
+
+## NotificationCard Component
+
+Displays:
+
+- Notification title
+- Message
+- Type
+- Time
+- Read status
+
+---
+
+## FilterBar Component
+
+Used for filtering notifications based on category.
+
+Available filters:
+
+- Placement
+- Event
+- Result
+
+---
+
+## PrioritySection Component
+
+Displays important notifications separately.
+
+High priority notifications are shown at the top.
+
+---
+
+# State Management
+
+React useState and useEffect hooks are used for managing application state.
+
+State examples:
+
+- Notifications data
+- Filter selection
+- Loading state
+
+---
+
+# API Integration
+
+Frontend fetches notification data using REST APIs.
+
+Example:
+
+```js
+fetch("/notifications")
+```
+
+---
+
+# Responsive Design
+
+The UI supports:
+
+- Desktop view
+- Tablet view
+- Mobile view
+
+Material UI responsive grid system is used for layout handling.
+
+---
+
+# User Flow
+
+1. User opens application
+2. Notifications are fetched from API
+3. Notifications are displayed on screen
+4. User can filter notifications
+5. User can mark notifications as read
+
+---
+
+# Error Handling
+
+Frontend handles:
+
+- API failure
+- Empty notification list
+- Loading state
+
+Error messages are shown using alerts or snackbar components.
+
+---
+
+# Logging Integration
+
+Frontend events are logged using reusable logging middleware.
+
+Example events:
+
+- Component render
+- API request failure
+- Filter selection
